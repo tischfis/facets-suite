@@ -240,7 +240,7 @@ clonal.cluster = function(out, fit, method='em', load.genome=FALSE, gene.pos=NUL
   tcn_ = rep(tcnscaled, cncf$num.mark)
   
   if(method == 'em'){lcn_ = rep(cncf$lcn.em, cncf$num.mark); my.ylab='CF EM'}
-  if(method == 'cncf'){lcn_ = rep(cncf$lcn, cncf$num.mark); my.ylab='Integer copy number (CNCF)'}
+  if(method == 'cncf'){lcn_ = rep(cncf$lcn, cncf$num.mark); my.ylab='CF CNCF'}
   
   mat = cbind(mat, cbind(tcn_, lcn_))
   starts = cumsum(c(1,cncf$num.mark))[1:length(cncf$num.mark)]
@@ -255,7 +255,8 @@ clonal.cluster = function(out, fit, method='em', load.genome=FALSE, gene.pos=NUL
     ccl = ccl + geom_vline(xintercept=gene.pos, color='palevioletred1')
   }
   
-  ccf.col = c(colorRampPalette(c("white", "steelblue"))(10),"bisque2")[round(10*cncf$cf.em+0.501)]
+  if(method == 'em'){ccf.col = c(colorRampPalette(c("white", "steelblue"))(10),"bisque2")[round(10*cncf$cf.em+0.501)]}
+  if(method == 'cncf'){ccf.col = c(colorRampPalette(c("white", "steelblue"))(10),"bisque2")[round(10*cncf$cf+0.501)]}
 
   ccl = ccl +
     geom_rect(data=cncf, aes(xmin=my.tcn.starts$chr.maploc, xmax=my.tcn.ends$chr.maploc, ymax=1, ymin=0), fill=ccf.col, col = 'white', size=0) +
@@ -355,10 +356,12 @@ plot.facets.all.output = function(out, fit, w=850, h=1100, type='png', load.geno
     valor = var.allele.log.odds.ratio(out, fit, gene.pos=gene.pos, lend=lend)
     icnem = integer.copy.number(out, fit, method='em', gene.pos=gene.pos, lend=lend)
     cclem = clonal.cluster(out, fit, method = 'em')
-    all.plots = list(cnlr, valor, icnem, cclem)
-    plot.no = 4
-    plot.h = c(1,1,1,.25)
-    h = (3/5)*h
+    icncncf = integer.copy.number(out, fit, method='cncf', gene.pos=gene.pos, lend=lend)
+    cclcncf = clonal.cluster(out, fit, method = 'cncf')
+    all.plots = list(cnlr, valor, icnem, cclem, icncncf, cclcncf)
+    plot.no = 6
+    plot.h = c(1,1,1,.25,1,.25)
+    h = (4.5/5)*h
   }
 
   if(type == 'pdf'){plotname = paste(plotname, '.pdf', sep=''); CairoPDF(width = 8.854167, height=11.458333, file=plotname)}

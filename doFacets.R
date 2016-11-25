@@ -218,6 +218,8 @@ facets_iteration <- function(COUNTS_FILE, TAG, DIRECTORY, CVAL, DIPLOGR, NDEPTH,
       out = procSample(dat, cval = CVAL, min.nhet = MIN_NHET, dipLogR = DIPLOGR)
       fit = emcncf2(out)
 
+      fit$cncf = cbind(fit$cncf, cf = out$out$cf, tcn = out$out$tcn, lcn = out$out$lcn)
+
       write_output(out, fit, DIRECTORY, TAG)
       print_run_details(out, fit, COUNTS_FILE, TAG, DIRECTORY, CVAL, DIPLOGR, NDEPTH, SNP_NBHD,
                         MIN_NHET, GENOME, GGPLOT, SINGLE_CHROM, SEED, RLIB_PATH, RLIB_VERSION, GIVE_PCVAL)
