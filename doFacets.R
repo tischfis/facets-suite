@@ -216,7 +216,7 @@ facets_iteration <- function(COUNTS_FILE, TAG, DIRECTORY, CVAL, DIPLOGR, NDEPTH,
         gbuild = GENOME, hetscale = TRUE, unmatched = FALSE, ndepthmax = 1000)
 
       out = procSample(dat, cval = CVAL, min.nhet = MIN_NHET, dipLogR = DIPLOGR)
-      fit = emcncf2(out)
+      fit = emcncf(out)
 
       fit$cncf = cbind(fit$cncf, cf = out$out$cf, tcn = out$out$tcn, lcn = out$out$lcn)
 
