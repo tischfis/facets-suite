@@ -1,0 +1,27 @@
+# INPUT PARAMETERS GIVEN
+# TAG = b4315cd86f87e64ad8cea666d7dbf3b2_Dual_purity 
+# Facets version = 0.3.9 
+# Input = countsMerged____b4315cd86f87e64ad8cea666d7dbf3b2____fe31e46d3a29c1bf3f9f86f659bf0c02.dat.gz 
+# Seed = 
+# snp.nbhd = 250 
+# ndepth = 35 
+# purity_cval =  NA 
+# cval = 300 
+# min.nhet = 25 
+# genome = hg19 
+
+# LOADED MODULE INFO
+# Package: facets 
+# LibPath: /opt/common/CentOS_6-dev/R/R-3.1.3/lib64/R/library 
+# Version: 0.3.9 
+# Built: 3.1.3 
+
+
+# FACETS OUTPUT
+# Purity = 0.6606818 
+# Ploidy = 3.199885 
+# dipLogR = -0.4816824 
+# dipt = 
+# loglik = 77.09941 
+# output flags
+# likely mixture of 1+0 & 2+0 in segclust: 4, 5

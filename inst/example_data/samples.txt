@@ -1,0 +1,5 @@
+Tumor_Sample_Barcode	cncf
+TCGA-OL-A5RY-01A-21D-A28B-09	10d85d009df4ff9f97b61da04d2f86b7/10d85d009df4ff9f97b61da04d2f86b7_Dual_purity.cncf.txt
+TCGA-E9-A1QZ-01A-21D-A167-09	aafc00a1ae5e1b2b9b0dd390dd2e049a/aafc00a1ae5e1b2b9b0dd390dd2e049a_Dual_purity.cncf.txt
+TCGA-E9-A1R6-01A-11D-A14G-09	b4315cd86f87e64ad8cea666d7dbf3b2/b4315cd86f87e64ad8cea666d7dbf3b2_Dual_purity.cncf.txt
+TCGA-EW-A1PA-01A-11D-A142-09	534337201be7ca6b06b4aa5b344e2213/534337201be7ca6b06b4aa5b344e2213_Dual_purity.cncf.txt
