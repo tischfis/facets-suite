@@ -1,7 +1,6 @@
 # FACETS suite
 
-1. Initial Parameters
-=====================
+# 1. Initial Parameters
 
 Specify default setting for generating SNP counts and running FACETS
 
@@ -15,8 +14,7 @@ Use min.het=15 for purity and high-sensitivity runs
 
 Stick with the one that we have\...
 
-2. Pre-fit
-==========
+# 2. Pre-fit
 
 Criteria for removing samples from consideration based on the SNP counts
 only.
@@ -38,8 +36,7 @@ Use concordance per segment?
 
 These can be found in the pairing file.
 
-3. Refit
-========
+# 3. Refit
 
 Criteria for rejecting a FACETS fit and procedure for selecting
 parameters for a subsequent run.
@@ -77,8 +74,7 @@ If more than 2% of the genome is covered by \"clonal\" (cf \> 0.5)
 homdels or if more than 50% of the genome is covered by LOH, check if
 the diploid logR has been set too high.
 
-4. Post-fit
-===========
+# 4. Post-fit
 
 Final criteria for accepting a FACETS fit as well as procedures for
 improving the purity estimate, gaps in the segments etc.
