@@ -72,14 +72,15 @@ facets.suite <- function(arg_line = NA){
   dir.create(outdir, showWarnings = FALSE, recursive = TRUE)
 
   maf <- suppressWarnings(fread(opts$options$maf))
-  s2c <- suppressWarnings(fread(samplefile))
-
+  samples <- suppressWarnings(fread(samplefile))
+  setkey(samples, Tumor_Sample_Barcode)
+  
   original_directory <- getwd()
   setwd(dirname(samplefile))
-  if(!all(file.exists(s2c[, cncf]))) {
+  if(!all(file.exists(samples[, cncf]))) {
     warning("Cannot find all paths in sample table\n")
   } else {
-    s2c[, cncf := tools::file_path_as_absolute(cncf), cncf]
+    samples[, cncf := tools::file_path_as_absolute(cncf), cncf]
   }
   setwd(original_directory)
 
@@ -101,15 +102,10 @@ facets.suite <- function(arg_line = NA){
   }
 
 
-  #### CNCF FILES EXIST ####
-
-  s2c[, cncf_exists := file.exists(cncf)]
-  s2c <- s2c[cncf_exists == TRUE]
-  write.tab(s2c, file.path(outdir, "samples.txt"))
-
   #### CNCF ####
 
-  cncf <- generate_cncf_file(s2c)
+  samples[, cncf_exists := file.exists(cncf)]
+  cncf <- generate_cncf_file(samples[cncf_exists == TRUE])
   setnames(cncf, "tcn", "tcn.cncf")
   setnames(cncf, "lcn", "lcn.cncf")
   setnames(cncf, "cf", "cf.cncf")
@@ -170,13 +166,14 @@ facets.suite <- function(arg_line = NA){
   QC <- qc(maf, cncf)
   write.tab(QC, file.path(outdir, "QC_summary.txt"))
 
+  #### MUT CNA SUMMARY ####
 
-  #### CNA SUMMARY ####
-
-  cna_summary <- cna_summary(maf, cncf)
-  write.tab(cna_summary, file.path(outdir, "cna_summary.txt"))
-
-
+  cna_summ <- cna_summary(cncf)
+  mut_summ <- mut_summary(maf)
+  mut_cna_summ <- merge(mut_summ, cna_summ, all = T)
+  samples <- merge(samples, mut_cna_summ, all.x = T)
+  write.tab(samples, file.path(outdir, "samples.txt"))
+  
   #### MUT STATUS ####
 
   mut_status <- maf_to_mut_status_long(maf = maf)

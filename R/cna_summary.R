@@ -8,7 +8,7 @@ FGA <- function(cncf){
   copy(FGA)
 }
 
-cna_summary <- function(maf, cncf){
+cna_summary <- function(cncf){
 
   # cncf[, total_seglen := sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start)),
   #      Tumor_Sample_Barcode]
@@ -16,6 +16,7 @@ cna_summary <- function(maf, cncf){
   cna_summary <- cncf[, .(
     ploidy = unique(ploidy),
     purity = unique(purity),
+    FGA = .SD[!(tcn == 2 & lcn == 1), sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start))] / sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start)),
     loh = .SD[lcn == 0, sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start))] / sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start)),
     f_hi_mcn = .SD[(tcn - lcn) >= 2, sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start))] / sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start))
   ),

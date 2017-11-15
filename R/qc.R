@@ -46,14 +46,35 @@ FGA <- function(cncf){
   copy(FGA)
 }
 
-qc <- function(maf, cncf){
+basic_qc <- function(cncf){
 
   # cncf[, total_seglen := sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start)),
   #      Tumor_Sample_Barcode]
 
   QC <- cncf[, .(
+    n.seg = .N,
     n.dip.seg = .SD[tcn == 2 & lcn == 1, .N],
-    loh = .SD[lcn == 0, sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start))] / sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start)),
+    n.snp = sum(num.mark),
+    fHOMDEL = .SD[tcn == 0, sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start))] / sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start)),
+    FGA = .SD[!(tcn == 2 & lcn == 1), sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start))] / sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start)),
+    f_hi_mcn = .SD[(tcn - lcn) >= 2, sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start))] / sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start))
+  ),
+  keyby = Tumor_Sample_Barcode]
+  QC
+}
+
+
+qc <- function(samples){
+  
+  # cncf[, total_seglen := sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start)),
+  #      Tumor_Sample_Barcode]
+  
+  QC <- cncf[, .(
+    n.seg = .N,
+    n.dip.seg = .SD[tcn == 2 & lcn == 1, .N],
+    n.snp = sum(num.mark),
+    fHOMDEL = .SD[tcn == 0, sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start))] / sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start)),
+    FGA = .SD[!(tcn == 2 & lcn == 1), sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start))] / sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start)),
     f_hi_mcn = .SD[(tcn - lcn) >= 2, sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start))] / sum(na.rm = T, as.numeric(loc.end) - as.numeric(loc.start))
   ),
   keyby = Tumor_Sample_Barcode]
