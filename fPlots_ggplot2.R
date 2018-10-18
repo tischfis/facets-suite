@@ -416,9 +416,9 @@ random.subset.snps = function(jointseg, by_factor=5) {
 }
 
 #Need to add this functionality so it can be callled by the wrapper, doFacets.R etc.
-close.up = function(out, fit, chrom.range=NULL, method=NA, gene.name=NULL, lend='butt', bed.path=NULL, subset.snps=FALSE, plotX = FALSE, ...){
+close.up = function(out, fit, chrom.range=NULL, method=NA, gene.name=NULL, lend='butt', bed.path=NULL, subset.snps=FALSE, plotX = FALSE,genome='hg19', ...){
 
-  if (!is.null(bed.path)) { gene.info = get.gene.pos(gene.name, my.path = bed.path)
+  if (!is.null(bed.path)) { gene.info = get.gene.pos(gene.name, my.path = bed.path,genome)
   } else { gene.info = get.gene.pos(gene.name) }
 
   if (!is.null(gene.name)) gene.pos = gene.info
