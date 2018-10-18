@@ -350,7 +350,7 @@ get.gene.pos = function(hugo.symbol,my.path=paste0(getSDIR(),'/Homo_sapiens.GRCh
         chrom = seqnames(genes[which(mcols(genes)$name == x)])[1]
         if (as.character(chrom) == 'X') chrom@values = 23
         if (as.integer(chrom)>1) mid.point = cum.chrom.lengths[as.integer(chrom)-1] + mid.point
-
+	message(c(mid = mid.point, chrom = as.numeric(as.character(chrom@values)), start = gene.start, end = gene.end))
         c(mid = mid.point, chrom = as.numeric(as.character(chrom@values)), start = gene.start, end = gene.end)
    })
 }
