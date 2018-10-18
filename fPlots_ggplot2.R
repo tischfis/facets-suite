@@ -325,9 +325,9 @@ get.cumulative.chr.maploc = function(mat, load.genome=FALSE){
 }
 
 
-get.gene.pos = function(hugo.symbol,my.path=paste0(getSDIR(),'/Homo_sapiens.GRCh37.75.canonical_exons.bed'),load.genome=FALSE){
+get.gene.pos = function(hugo.symbol,my.path=paste0(getSDIR(),'/Homo_sapiens.GRCh37.75.canonical_exons.bed'),load.genome=FALSE,genome="hg19"){
 
-  if(load.genome){
+  if(genome=="hg38){
     require(BSgenome.Hsapiens.UCSC.hg19)
     genome = BSgenome.Hsapiens.UCSC.hg19
     chrom.lengths = seqlengths(genome)[1:23]
